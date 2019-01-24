@@ -1,0 +1,20 @@
+docker pull sreeharshav/puppetmaster:nocasetup
+docker pull sreeharshav/puppetagent:V1
+docker network create --subnet 172.20.0.0/16 --gateway 172.20.0.254 ansible_nw
+docker run --rm -dit --expose 8140 --name puppet --hostname puppet --network ansible_nw sreeharshav/puppetmaster:nocasetup
+puppetserver ca setup
+service puppetserver start
+puppetserver --version
+cp /opt/puppetlabs/puppet/bin/puppet  /sbin/
+
+
+
+docker run --rm -dit --name puppetagent1 --hostname puppetagent1 --network ansible_nw sreeharshav/puppetagent:V2
+docker run --rm -dit --name puppetagent2 --hostname puppetagent2 --network ansible_nw sreeharshav/puppetagent:V2
+docker run --rm -dit --name puppetagent3 --hostname puppetagent3 --network ansible_nw sreeharshav/puppetagent:V2
+docker run --rm -dit --name puppetagent4 --hostname puppetagent4 --network ansible_nw sreeharshav/puppetagent:V2
+
+docker run --rm -dit --name puppetagent1 --hostname puppetagent5 --network ansible_nw sreeharshav/puppetagent:V2
+docker run --rm -dit --name puppetagent2 --hostname puppetagent6 --network ansible_nw sreeharshav/puppetagent:V2
+docker run --rm -dit --name puppetagent3 --hostname puppetagent7 --network ansible_nw sreeharshav/puppetagent:V2
+docker run --rm -dit --name puppetagent4 --hostname puppetagent8 --network ansible_nw sreeharshav/puppetagent:V2
